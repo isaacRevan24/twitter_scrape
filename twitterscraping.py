@@ -2,42 +2,41 @@ from twitterscraper import query_tweets
 import datetime as dt
 import pandas as pd
 
+# Configuración de query
 begin_date = dt.date(2020, 1, 1)
-end_date = dt.date(2020, 4, 1)
+end_date = dt.date.today()
 limit = 1000000
 lang = 'spanish'
+lugares = ("bocas del toro", "chiriqui", "cocle", "colon", "Darien", "herrera", "los santos", "panama", "panama oeste", "veraguas", "san miguelito", "arraijan", "chorrera", "david", "veracruz", "aguadulce", "los santos", "juan dias")
 
 # Busqueda "#coronavirus"
-tweets = query_tweets(["panama", "coronavirus"], begindate=begin_date,
-                      enddate=end_date, limit=limit, lang=lang)
+for lugar in lugares:
+    tweets = query_tweets([lugar ,"coronavirus"], begindate=begin_date, enddate=end_date, limit=limit, lang=lang)
+    df = pd.DataFrame(t.__dict__ for t in tweets)
+    df.sort_values("timestamp", ascending = True, inplace=True)
+    df.drop_duplicates("tweet_id", inplace=True)
+    nombre_archivo = "tweet_dataset_1"+lugar+".csv"
+    df.to_csv(nombre_archivo, index=False)
 
-df = pd.DataFrame(t.__dict__ for t in tweets)
-df.sort_values("timestamp", ascending = True, inplace=True)
-df.drop_duplicates("tweet_id", inplace=True)
-df.to_csv('twitter_dataset_1.csv', index=False)
 
 
 # Busqueda "#covid-19"
-tweets = query_tweets(["panama", "covid-19"], begindate=begin_date,
-                      enddate=end_date, limit=limit, lang=lang)
-
-df = pd.DataFrame(t.__dict__ for t in tweets)
-df.sort_values("timestamp", ascending = True, inplace=True)
-df.drop_duplicates("tweet_id", inplace=True)
-df.to_csv('twitter_dataset_2.csv', index=False)
-
-
-
-# Busqueda "#pandemia"
-tweets = query_tweets(["panama", "pandemia"], begindate=begin_date,
-                      enddate=end_date, limit=limit, lang=lang)
-
-df = pd.DataFrame(t.__dict__ for t in tweets)
-df.sort_values("timestamp", ascending = True, inplace=True)
-df.drop_duplicates("tweet_id", inplace=True)
-df.to_csv('twitter_dataset_3.csv', index=False)
+for lugar in lugares:
+    tweets = query_tweets([lugar ,"covid-19"], begindate=begin_date, enddate=end_date, limit=limit, lang=lang)
+    df = pd.DataFrame(t.__dict__ for t in tweets)
+    df.sort_values("timestamp", ascending = True, inplace=True)
+    df.drop_duplicates("tweet_id", inplace=True)
+    nombre_archivo = "tweet_dataset_2"+lugar+".csv"
+    df.to_csv(nombre_archivo, index=False)
 
 
 
-
+# Busqueda "#coronavirus"
+for lugar in lugares:
+    tweets = query_tweets([lugar ,"pandemia"], begindate=begin_date, enddate=end_date, limit=limit, lang=lang)
+    df = pd.DataFrame(t.__dict__ for t in tweets)
+    df.sort_values("timestamp", ascending = True, inplace=True)
+    df.drop_duplicates("tweet_id", inplace=True)
+    nombre_archivo = "tweet_dataset_3"+lugar+".csv"
+    df.to_csv(nombre_archivo, index=False)
 
