@@ -5,7 +5,7 @@ import pandas as pd
 # Configuración de query
 begin_date = dt.date(2020, 1, 1)
 end_date = dt.date.today()
-limit = 1000000
+limit = 100
 lang = 'spanish'
 lugares = ("bocas del toro", "chiriqui", "cocle", "colon", "Darien", "herrera", "los santos", "panama", "panama oeste", "veraguas", "san miguelito", "arraijan", "chorrera", "david", "veracruz", "aguadulce", "los santos", "juan dias")
 
@@ -15,9 +15,8 @@ for lugar in lugares:
     df = pd.DataFrame(t.__dict__ for t in tweets)
     df.sort_values("timestamp", ascending = True, inplace=True)
     df.drop_duplicates("tweet_id", inplace=True)
-    nombre_archivo = "tweet_dataset_1"+lugar+".csv"
+    nombre_archivo = "tweet_dataset_1_"+lugar.replace(" ", "")+".csv"
     df.to_csv(nombre_archivo, index=False)
-
 
 
 # Busqueda "#covid-19"
@@ -26,7 +25,7 @@ for lugar in lugares:
     df = pd.DataFrame(t.__dict__ for t in tweets)
     df.sort_values("timestamp", ascending = True, inplace=True)
     df.drop_duplicates("tweet_id", inplace=True)
-    nombre_archivo = "tweet_dataset_2"+lugar+".csv"
+    nombre_archivo = "tweet_dataset_2_"+lugar.replace(" ", "")+".csv"
     df.to_csv(nombre_archivo, index=False)
 
 
@@ -37,6 +36,5 @@ for lugar in lugares:
     df = pd.DataFrame(t.__dict__ for t in tweets)
     df.sort_values("timestamp", ascending = True, inplace=True)
     df.drop_duplicates("tweet_id", inplace=True)
-    nombre_archivo = "tweet_dataset_3"+lugar+".csv"
+    nombre_archivo = "tweet_dataset_3_"+lugar.replace(" ", "")+".csv"
     df.to_csv(nombre_archivo, index=False)
-
