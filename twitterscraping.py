@@ -5,7 +5,7 @@ import pandas as pd
 # Configuración de query
 begin_date = dt.date(2020, 1, 1)
 end_date = dt.date.today()
-limit = 100
+limit = 1000000
 lang = 'spanish'
 lugares = ("bocas del toro", "chiriqui", "cocle", "colon", "Darien", "herrera", "los santos", "panama", "panama oeste", "veraguas", "san miguelito", "arraijan", "chorrera", "david", "veracruz", "aguadulce", "los santos", "juan dias")
 
